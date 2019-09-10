@@ -27,6 +27,10 @@ http {
 		client_body_timeout 5;
 	
 		resolver 172.16.0.23 valid=30s;
+		
+	    upstream upstream_app1 {
+	       server ggn-nginx-test-target.herokuapp.com;
+	     }
  	}
 
 	server {
@@ -37,7 +41,7 @@ http {
 		location / {
           proxy_pass http://$upstream/$1$is_args$args;
           proxy_set_header x-forwarded-host $host;
-          set $upstream app_server;
+          set $upstream upstream_app1;
           proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
 		}
 	}
