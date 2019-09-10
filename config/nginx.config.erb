@@ -41,7 +41,6 @@ http {
 		location / {
           proxy_pass https://ggn-nginx-test-target.herokuapp.com;
           proxy_set_header x-forwarded-host $host;
-          set $upstream upstream_app1;
           proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
 		}
 	}
