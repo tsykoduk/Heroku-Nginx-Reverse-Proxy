@@ -25,17 +25,18 @@ http {
 
 		#Must read the body in 5 seconds.
 		client_body_timeout 5;
+	
+		resolver 172.16.0.23 valid=30s;
 		
  	}
 
 	server {
 		listen <%= ENV["PORT"] %>;
-		server_name app_server;
+		
 		keepalive_timeout 5;
 
 		location / {
-			resolver 172.16.0.23 valid=30s;
-         	proxy_pass https://ggn-nginx-test-target.herokuapp.com;
+			proxy_pass https://ggn-nginx-test-target.herokuapp.com;
           	proxy_set_header x-forwarded-host $host;
           	proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
 		}
