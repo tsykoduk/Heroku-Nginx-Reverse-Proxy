@@ -48,7 +48,7 @@ http {
 
     location ~ ^/stage/? {        
       set $upstream upstream_staging;     
-      proxy_pass http://$upstream/;
+      proxy_pass http://$upstream;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host greg.nokes.name;
     }
