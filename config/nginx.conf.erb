@@ -30,6 +30,9 @@ http {
   upstream upstream_production {
     server ggn-nginx-test-target.herokuapp.com;
   }
+  upstream upstream_blog {
+    server greg.nokes.name;
+  }
 
   server {
     listen <%= ENV["PORT"] %>;
@@ -40,6 +43,13 @@ http {
       proxy_pass http://$upstream;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
+    }
+	
+    location /blog {
+      set $upstream upstream_blog;
+      proxy_pass http://$upstream;
+      proxy_set_header x-forwarded-host $host;
+      proxy_set_header Host greg.nokes.name;
     }
 
   }
