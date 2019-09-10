@@ -1,45 +1,56 @@
 daemon off;
-#Heroku dynos have at least 4 cores.
+# Heroku dynos have at least 4 cores
 worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
 
 events {
-	use epoll;
-	accept_mutex on;
-	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
+  use epoll;
+  accept_mutex on;
+  worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
 }
 
 http {
-        gzip on;
-        gzip_comp_level 2;
-        gzip_min_length 512;
+  gzip on;
+  gzip_comp_level 2;
+  gzip_min_length 512;
 
-		server_tokens off;
+  server_tokens off;
+  
+  log_format main '$time_iso8601 - $status $request - client IP: $http_x_forwarded_for - <%= ENV['DYNO'] %> to $upstream_addr - upstream status: $upstream_status, upstream_response_time $upstream_response_time, request_time $request_time';
+  access_log /dev/stdout main;
+  error_log /dev/stdout notice;
+  log_not_found on;
 
-		log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-		access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
-		error_log <%= ENV['NGINX_ERROR_LOG_PATH'] || 'logs/nginx/error.log' %>;
+  include mime.types;
+  default_type application/octet-stream;
+  sendfile on;
 
-		include mime.types;
-		default_type application/octet-stream;
-		sendfile on;
+  # Must read the body in 5 seconds.
+  client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
-		#Must read the body in 5 seconds.
-		client_body_timeout 5;
-	
-		resolver 172.16.0.23 valid=30s;
-		
- 	}
+  upstream upstream_staging {
+    server greg.nokes.name;
+  }
 
-	server {
-		listen <%= ENV["PORT"] %>;
-		keepalive_timeout 5;
-		server_name ggn-nginx-test-target.herokuapp.com
+  upstream upstream_production {
+    server ggn-nginx-test-target.herokuapp.com;
+  }
 
-		location / {
-			proxy_pass https://ggn-nginx-test-target.herokuapp.com;
-			proxy_redirect off;
-          	proxy_set_header x-forwarded-host $host;
-          	proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
-		}
-	}
+  server {
+    listen <%= ENV["PORT"] %>;
+    server_name _;
+
+    location / {
+      set $upstream upstream_production;
+      proxy_pass http://$upstream;
+      proxy_set_header x-forwarded-host $host;
+      proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
+    }
+
+    location ~ ^/stage/? {        
+      set $upstream upstream_staging;     
+      proxy_pass http://$upstream/;
+      proxy_set_header x-forwarded-host $host;
+      proxy_set_header Host greg.nokes.name;
+    }
+  }
 }
