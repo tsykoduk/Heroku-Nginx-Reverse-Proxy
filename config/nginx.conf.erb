@@ -27,10 +27,6 @@ http {
   # Must read the body in 5 seconds.
   client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
-  upstream upstream_blog {
-    server greg.nokes.name;
-  }
-
   upstream upstream_production {
     server ggn-nginx-test-target.herokuapp.com;
   }
@@ -46,11 +42,5 @@ http {
       proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
     }
 
-    location ~ ^/blog/? {        
-      set $upstream upstream_blog;     
-      proxy_pass http://$upstream/;
-      proxy_set_header x-forwarded-host $host;
-      proxy_set_header Host greg.nokes.name;
-    }
   }
 }
