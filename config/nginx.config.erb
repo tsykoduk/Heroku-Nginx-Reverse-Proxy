@@ -32,11 +32,11 @@ http {
 
 	server {
 		listen <%= ENV["PORT"] %>;
-		
 		keepalive_timeout 5;
 
 		location / {
 			proxy_pass https://ggn-nginx-test-target.herokuapp.com;
+			proxy_redirect off;
           	proxy_set_header x-forwarded-host $host;
           	proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
 		}
