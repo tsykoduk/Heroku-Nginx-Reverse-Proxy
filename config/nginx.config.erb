@@ -33,6 +33,7 @@ http {
 	server {
 		listen <%= ENV["PORT"] %>;
 		keepalive_timeout 5;
+		server_name ggn-nginx-test-target.herokuapp.com
 
 		location / {
 			proxy_pass https://ggn-nginx-test-target.herokuapp.com;
