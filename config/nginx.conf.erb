@@ -41,14 +41,14 @@ http {
 
     location / {
       set $upstream upstream_production;
-      proxy_pass http://$upstream$uri$is_args$args;
+      proxy_pass https://$upstream$is_args$args;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host ggn-nginx-test-target.herokuapp.com;
     }
 	
     location /blog {
       set $upstream upstream_blog;
-      proxy_pass http://$upstream$uri$is_args$args;
+      proxy_pass https://$upstream$is_args$args;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host greg.nokes.name;
     }
