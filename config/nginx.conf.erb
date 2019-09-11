@@ -41,7 +41,7 @@ http {
 	
     location /blog/ {
       set $upstream upstream_blog;
-      proxy_pass http://$upstream/;
+      proxy_pass https://$upstream/;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host greg.nokes.name;
     }
