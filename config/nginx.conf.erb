@@ -39,9 +39,9 @@ http {
     listen <%= ENV["PORT"] %>;
     server_name _;
 	
-    location /blog {
+    location /blog/ {
       set $upstream upstream_blog;
-      proxy_pass http://greg.nokes.name;
+      proxy_pass https://greg.nokes.name;
       proxy_set_header x-forwarded-host $host;
       proxy_set_header Host greg.nokes.name;
     }
