@@ -28,7 +28,7 @@ http {
   client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
   upstream upstream_blog {
-    server greg.nokes.name;
+    server ggn-nginx-router-blog.herokuapp.com;
   }
 
   upstream upstream_production {
@@ -41,9 +41,9 @@ http {
 	
     location /blog/ {
       set $upstream upstream_blog;
-      proxy_pass https://greg.nokes.name;
+      proxy_pass http://$upstream$uri$is_args$args;
       proxy_set_header x-forwarded-host $host;
-      proxy_set_header Host greg.nokes.name;
+      proxy_set_header Host ggn-nginx-router-blog.herokuapp.com;
     }
 
     location / {
