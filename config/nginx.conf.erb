@@ -28,7 +28,7 @@ http {
   client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
   upstream upstream_blog {
-    server ggn-nginx-router-blog.herokuapp.com;
+    server greg.nokes.name;
   }
 
   upstream upstream_production {
