@@ -142,7 +142,7 @@ http {
 }
 ```
 
-You should now be able to hit https://ggn-nginx-router-test.herokuapp.com (https://ggn-nginx-router-test.herokuapp.com/) and get the app living a https://ggn-nginx-test-target.herokuapp.com (https://ggn-nginx-test-target.herokuapp.com/) delivered to you.
+You should now be able to hit https://ggn-nginx-router-test.herokuapp.com and get the app living at https://ggn-nginx-test-target.herokuapp.com delivered to you.
 
 **Setup nginx-test-blog**
 
