@@ -215,3 +215,5 @@ and
 ```
 
 Now when you visit https://ggn-nginx-router-test.herokuapp.com/blog/ you will get the contents of https://ggn-nginx-router-blog.herokuapp.com/
+
+In the config directory of this repo is a sample `nginx.conf.erb` which enables this exact example.
