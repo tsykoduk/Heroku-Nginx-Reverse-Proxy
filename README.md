@@ -13,7 +13,7 @@ ggn-nginx-router-test will be running Nginx, with configs set to route requests 
 ggn-nginx-test-target will simply deliver HTML with the requestors HTML headers.
 ggn-nginx-test-blog will simply be a second HTML target.
 
-Setup ggn-nginx-test-target
+**Setup nginx-test-target**
 
 Install PHP and Composer Locally (`brew install php && brew install composer` on a Mac) 
 
@@ -66,7 +66,7 @@ foreach (getallheaders() as $name => $value) {
 ?>
 ```
 
-Setup ggn-nginx-router-test
+**Setup nginx-router-test**
 
 Set up your working directory 
 
@@ -144,7 +144,7 @@ http {
 
 You should now be able to hit https://ggn-nginx-router-test.herokuapp.com (https://ggn-nginx-router-test.herokuapp.com/) and get the app living a https://ggn-nginx-test-target.herokuapp.com (https://ggn-nginx-test-target.herokuapp.com/) delivered to you.
 
-Setup ggn-nginx-test-blog
+**Setup nginx-test-blog**
 
 Set up your working directory and create a `.gitignore` file
 
