@@ -144,6 +144,8 @@ http {
 
 You should now be able to hit https://ggn-nginx-router-test.herokuapp.com and get the app living at https://ggn-nginx-test-target.herokuapp.com delivered to you.
 
+Or you can simply deploy this repo.
+
 **Setup nginx-test-blog**
 
 Set up your working directory and create a `.gitignore` file
