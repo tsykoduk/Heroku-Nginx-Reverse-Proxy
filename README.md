@@ -1,7 +1,7 @@
 Nginx Routing on Heroku
 ===================
 
-Sometimes, we want to be able to route requests based on URL paths easily, or have a front end app that serve data from private back end services. For example, if you have several services in a Private Space that serve HTML, you might not want to expose them to the internet, and rather have a routing app that in front which will handle this. Or you might want to route your asset delivery to S3, and completely offload that processing from the local app server. Nginx is a powerful, fast and lightweight web server which can also operate as a reverse proxy. It also runs well on Heroku.
+Sometimes, we want to be able to route requests based on URL paths easily, or have a front end app that serve data from private back end services. For example, if you have several services in a Private Space that serve HTML, you might not want to expose them to the internet, and rather have a routing app in front which will handle this. Or you might want to route your asset delivery to S3, and completely offload that processing from the local app server. Nginx is a powerful, fast and lightweight web server which can also operate as a reverse proxy. It also runs well on Heroku.
 
 For this example, we will set up 3 apps
 
